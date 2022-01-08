@@ -48,6 +48,9 @@ Route::resource('sub_category',SubcategoryController::Class);
 Route::resource('product',ProductController::Class);
 
 // Customers
+Route::POST('customer/alldata', [CustomerController::class, 'alldata'])
+->name('customer.alldata');
+Route::get('customer/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.delete');
 Route::resource('customer',CustomerController::Class);
 
 

@@ -20,7 +20,7 @@
 				<div class="card">
 					<div class="card-body">
 						<a class="btn btn-success btn-sm" href="{{route('customer.create')}}">ADD NEW CUSTOMER+</a>
-						<table class="table example">
+						<table class="table">
 							<thead>
 								<tr>
 									<th scope="col">Id</th>
@@ -28,15 +28,33 @@
 									<th scope="col">Email</th>
 									<th scope="col">Phone</th>
 									<th scope="col">Address</th>
-									<th scope="col">actions</th>
-
+									<th scope="col">ACTIONS</th>
 								</tr>
 							</thead>
-							<tfoot>
-								
+							<tbody>
+								@foreach($customers as $item)
 
-								
-							</tfoot>
+								<tr>
+									<th scope="row">{{$item->id}}</th>
+									<td>{{$item->name}}</td>
+									<td>{{$item->email}}</td>
+									<td>{{$item->phone}}</td>
+									<td>{{$item->address}}</td>
+
+									<td>
+										<form action="{{route('customer.destroy',$item->id)}}" method="post">
+											@csrf
+											@method('DELETE')
+											
+											<a class="btn btn-primary btn-sm" href="{{route('customer.edit',$item->id)}}">edit/view</a>
+										<button class="btn btn-danger btn-sm" type="submit">Delete</button>
+											
+										</form>
+										
+									</td>
+								</tr>
+					@endforeach
+							</tbody>
 						</table>
 						
 					</div>
@@ -48,62 +66,6 @@
 	@jquery
 	@toastr_js
 	@toastr_render
-
-
-
-<script>
-	$(document).ready(function(){
-		$('.example').DataTable({
-			 "processing": true,
-            "serverSide": true,
-              "ajax":{
-                     "url": "{{ route('customer.alldata') }}",
-                     "dataType": "json",
-                     "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
-                   },
-         "columns": [
-                { "data": "id" },
-                { "data": "name" },
-                { "data": "email" },
-                { "data": "phone" },
-                { "data": "address" },
-                { "data": "options" },
-               
-            ]
-           });
-
-
-
-	});
-</script>
-
-
-
-<!-- scrip for delete data -->
-
-<script type="text/javascript">
-	function deletbtn(id){
-	
-	$.ajax({
-		type:'DELETE',
-		datatype:'json',
-		url:"/customer/"+id,
-		"data":{ _token: "{{csrf_token()}}"},
-		success:function(data){
-			$('.example').DataTable().ajax.reload()
-
-		}
-	})
-}
-</script>
-
-
-
-
-
-
-
 	<!-- /.content-wrapper -->
 	@includeIf('backend.include.footer')
 	<!-- /.control-sidebar -->
