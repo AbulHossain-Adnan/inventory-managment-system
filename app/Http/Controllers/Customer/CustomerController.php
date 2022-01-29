@@ -74,8 +74,6 @@ class CustomerController extends Controller
             {
                $edit=route('customer.edit',$post->id);
                $delete=route('customer.delete',$post->id);
-
-
                 $nestedData['id'] = $post->id;
                 $nestedData['name'] = $post->name;
                 $nestedData['email'] = $post->email;
@@ -101,8 +99,6 @@ class CustomerController extends Controller
 
 
     
-
-   
     public function create()
     {
         return view('customer/create');

@@ -54,7 +54,7 @@
 <script>
 	$(document).ready(function(){
 		$('.example').DataTable({
-			 "processing": true,
+	     "processing": true,
             "serverSide": true,
               "ajax":{
                      "url": "{{ route('customer.alldata') }}",

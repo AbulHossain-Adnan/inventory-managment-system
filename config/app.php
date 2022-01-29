@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
            Yoeunes\Toastr\ToastrServiceProvider::class,
+            Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
