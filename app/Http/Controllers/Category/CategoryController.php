@@ -8,38 +8,32 @@ use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use DataTables;
 use DB;
+use App\Services\CategoryService;
+
+
 
 
 class CategoryController extends Controller
 {
+    protected $categoryservice;
+    public function __construct(CategoryService $categoryservice){
+        $this->categoryservice=$categoryservice;
+
+    }
     
     public function index(Request $request)
     {
+       
+        if ($request->ajax()) {
 
-                if ($request->ajax()) {
-
-                     $data = Category::select(['id', 'name', 'title', 'created_at', 'updated_at']);
+            $data = Category::select(['id', 'name', 'title', 'created_at', 'updated_at']);
                     
-                   
-
             return Datatables::of($data) 
-            ->filter(function ($query) use ($request) {
-              
-                    $keyword=$request->keyword;
-                        if ($request->keyword) {
-                            $query->where('name', 'like', "%{$keyword}%");
-                        }
-                        
-                        if($request->number == "only"){
-                            $query->where('name','REGEXP',"[0-9]");
-                        }
-                        if($request->number == "mixed"){
-                            $query->where('name','REGEXP',"[a-z|0-9]");
-                        }
-                        if($request->dash == "yes"){
-                            $query->where('name','REGEXP',"[-]");
-                        }
 
+            ->filter(function ($query) use ($request) {
+
+               $this->categoryservice->conditions($request,$query);
+               
                     })
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
@@ -47,15 +41,11 @@ class CategoryController extends Controller
                            $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
                             return $btn;
 
-                    })
-
-                    ->rawColumns(['action'])
-
+                    })->rawColumns(['action'])
                     ->make(true);
-
+                   
         }
 
-       
         return view('category/index',
             ['categories'=>Category::orderBy('id','desc')->paginate(4)
         ]);

@@ -13,6 +13,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "maatwebsite/excel": "^3.1",
         "yajra/laravel-datatables-oracle": "^9.19",
         "yoeunes/toastr": "^1.2"
     },

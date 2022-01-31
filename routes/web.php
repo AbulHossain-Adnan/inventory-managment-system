@@ -11,6 +11,7 @@ use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Report\ReportController;
+use App\Http\Controllers\File\FileController;
 use App\Mail\EmailSend;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Product;
@@ -92,6 +93,8 @@ Route::get('queue',function(){
 
 	return "mail send properly";
 });
+
+Route::resource('file',FileController::class);
 
 
 
