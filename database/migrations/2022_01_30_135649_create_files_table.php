@@ -13,7 +13,7 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('uscities', function (Blueprint $table) {
             $table->id();
             $table->string('city');
             $table->string('city_ascii');
@@ -44,6 +44,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('uscities');
     }
 }

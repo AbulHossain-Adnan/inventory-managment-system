@@ -41,11 +41,11 @@ class FileImport implements ToModel, WithChunkReading, ShouldQueue,WithStartRow
     }
     public function batchSize(): int
     {
-        return 500;
+        return 5000;
     }
 
     public function chunkSize(): int
     {
-        return 500;
+        return 5000;
     }
 }
