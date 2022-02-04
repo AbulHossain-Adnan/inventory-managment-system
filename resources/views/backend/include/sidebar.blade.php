@@ -137,7 +137,77 @@
               <li class="nav-item">
                 <a href="{{route('file.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>File</p>
+                  <p>File Create</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('processjob.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Processing Job List</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="{{route('failed_job.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Failed Job List</p>
+                </a>
+              </li>
+
+               <li class="nav-item">
+                <a href="{{route('job_live_history')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Live Job history</p>
+                </a>
+              </li>
+             
+             
+            </ul>
+
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Expired Domain
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('expireddomain.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ExpiredDomains List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('expireddomain.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Failed Job List</p>
+                </a>
+              </li>
+             
+            </ul>
+
+          </li>
+           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                UScity
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('uscity.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>US City List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('expireddomain.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Failed Job List</p>
                 </a>
               </li>
              

@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\File;
+use App\Models\Uscity;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,8 @@ class FileImport implements ToModel, WithChunkReading, ShouldQueue,WithStartRow
    
     public function model(array $row)
     {
-        return new File([
+      
+        return new Uscity([
             'city'     => $row[0],
             'city_ascii'   => $row[1],
             'state_id'     => $row[2],

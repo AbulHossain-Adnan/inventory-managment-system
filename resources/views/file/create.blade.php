@@ -23,11 +23,23 @@
 						<form action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
 							@csrf
 							<div class="form-group">
-								<label for="exampleInputEmail1">excle File Upload</label>
+								<label for="exampleInputEmail1">Chunk Size</label>
+								@error('chunk')
+								<span class="text-danger">{{ $message }}</span>
+								@enderror
+								
+								<input type="text" name="chunk" class="form-control" placeholder="chunk size">
+
+								
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Excle Or Txt File</label>
 								@error('name')
 								<span class="text-danger">{{ $message }}</span>
 								@enderror
+
 								<input type="file" name="file" class="form-control" placeholder="name">
+
 								
 							</div>
 							
@@ -42,31 +54,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 m-auto">
-				<div class="card">
-					<div class="card-body">
-						<!-- <a class="btn btn-warning btn-sm" href="{{route('category.index')}}">ALL file</a> -->
-						<form action="{{route('expireddomain.store')}}" method="post" enctype="multipart/form-data">
-							@csrf
-							<div class="form-group">
-								<label for="exampleInputEmail1">Text File Upload</label>
-								@error('name')
-								<span class="text-danger">{{ $message }}</span>
-								@enderror
-								<input type="file" name="file" class="form-control" placeholder="name">
-								
-							</div>
-							
-						
-							 <a class="btn btn-warning" type="button"  href="">BACK</a>
-							<button type="submit" class="btn btn-primary btn">Submit</button>
-
-						</form>
-
-						
-					</div>
-				</div>
-			</div>
+			
 		</section>
 		<!-- /.content -->
 	</div>

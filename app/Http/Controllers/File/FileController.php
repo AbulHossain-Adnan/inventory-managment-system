@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\File;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\File;
 use App\Imports\FileImport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Services\FileService;
+use App\Http\Requests\FileRequest;
+use Illuminate\Support\Facades\Bus;
 
 class FileController extends Controller
 {
+    protected $fileservice;
+
+    public function __construct(FileService $fileservice){
+        $this->fileservice=$fileservice;
+    }
    
    
     public function create()
@@ -17,17 +22,20 @@ class FileController extends Controller
         return view('file/create');
     }
 
-   
-    public function store(Request $request)
+
+    public function store(FileRequest $request)
     {
+        $batch=$this->fileservice->fileHandle($request); 
+        toastr()->success('data stored succesfully');
 
-          $file=$request->file('file');
-          
+        $batchId=$batch->id;
 
-        Excel::import(new FileImport,$file);
-       
-    return back();
+        $batch_data=Bus::findBatch($batchId);
+
+
+        // return  redirect('progress_job/index',compact('batch_data'));
+
+        return redirect('job_processing/'. $batchId);
     }
 
-   
 }

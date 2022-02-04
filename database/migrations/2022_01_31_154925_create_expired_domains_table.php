@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateExpiredDomainsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('expired_domains', function (Blueprint $table) {
@@ -20,11 +16,7 @@ class CreateExpiredDomainsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+   
     public function down()
     {
         Schema::dropIfExists('expired_domains');

@@ -13,11 +13,18 @@ use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\File\FileController;
 use App\Http\Controllers\ExpiredDomainController;
+use App\Http\Controllers\Uscity\UScityController;
+use App\Http\Controllers\FailedJob\FailedJobController;
+use App\Http\Controllers\ProcessJob\ProcessJobController;
+
+
+
 
 use App\Mail\EmailSend;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Product;
 use App\Jobs\EmailSendJob;
+
 
 
 
@@ -97,9 +104,42 @@ Route::get('queue',function(){
 });
 
 Route::resource('file',FileController::class);
-
 // expiredDomain
 Route::resource('expireddomain',ExpiredDomainController::class);
+// uscity
+Route::resource('uscity',UScityController::class);
+// failed_job
+Route::resource('failed_job',FailedJobController::class);
+// processjob
+Route::get('processjob', [ProcessJobController::class, 'index'])
+->name('processjob.index');
+
+
+
+Route::get('queue_retry_all', function () {
+
+    \Artisan::call('queue:retry all');
+
+    return back();
+
+})->name('queue_retry_all');
+
+
+
+Route::get('queue_retry', function () {
+
+    \Artisan::call('queue:retry 409' );
+
+    return back();
+
+})->name('queue_retry_all');
+
+
+Route::get('job_processing/{id}', [ProcessJobController::class, 'job_processing']);
+
+// job_live_history
+Route::get('job_live_history', [ProcessJobController::class, 'job_live_history'])->name('job_live_history');
+
 
 
 

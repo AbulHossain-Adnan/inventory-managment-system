@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ExpiredDomain extends Model
 {
     use HasFactory;
-    protected $fillable=['domain'];
+     protected $guarded = [];
+   
 }

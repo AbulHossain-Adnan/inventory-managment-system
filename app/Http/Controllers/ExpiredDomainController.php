@@ -5,51 +5,60 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ExpiredDomain;
 use App\Jobs\ExpiredDomainProcess;
-use Illuminate\Support\Facades\Bus;
+use App\Imports\FileImport;
+use Maatwebsite\Excel\Facades\Excel;
+use DataTables;
 class ExpiredDomainController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+   
+    public function index(Request $request){
+    
+        if ($request->ajax()) {
+
+            $data = ExpiredDomain::all();
+                    
+            return DataTables::of($data) 
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                            return $btn;
+
+                    })->rawColumns(['action'])
+                    ->make(true);
+                   
+        }
+
+        return view('expiredDomain/index');
+       
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
+
         $file=$request->file('file');
+        $extension=$file->extension();
+       
+        if($extension =="txt"){
+
         $doc=file_get_contents($file);
 
         $domains=explode("\n",$doc);
         $chunks = array_chunk($domains,1000);
 
-        $header = [];
-            $batch  = Bus::batch([])->dispatch();
+      
+            $header = [];
 
             foreach ($chunks as $key => $domain) {
 
             $data = array_map('str_getcsv', $domain);
-
-            // $data=$domain;
 
                 if($key == 0){
 
@@ -57,25 +66,30 @@ class ExpiredDomainController extends Controller
 
                     unset($data[0]);
                 }
+          
 
+      ExpiredDomainProcess::dispatch($data,$header); 
 
-
-            ExpiredDomainProcess::dispatch($data,$header);
-
-                
-                
-            }
-           
-
-                // $data=new ExpiredDomain();
-                // $data->domain=$item;
-                // $data->save(); 
-
-    
 
             
-    
-      
+            }
+             echo "stored"; 
+
+         }
+
+         else{
+
+       $file=$request->file('file');
+        Excel::import(new FileImport,$file);
+
+
+        $cart=Jobs::count();
+
+        dd($cart);
+
+
+         }
+   
 }
 
        

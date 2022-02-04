@@ -1,5 +1,5 @@
 <?php
-
+use Streaming\FFMpeg;
 return [
 
     /*
@@ -12,6 +12,7 @@ return [
     | syntax for every one. Here you may define a default connection.
     |
     */
+    
 
     'default' => env('QUEUE_CONNECTION', 'sync'),
 
@@ -91,3 +92,6 @@ return [
     ],
 
 ];
+$ffmpeg =  FFMpeg::create([
+            'timeout'          => 3600
+        ]);
