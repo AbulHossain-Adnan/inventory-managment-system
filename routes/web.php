@@ -108,7 +108,17 @@ Route::resource('file',FileController::class);
 Route::resource('expireddomain',ExpiredDomainController::class);
 // uscity
 Route::resource('uscity',UScityController::class);
+
+
+
+
+
+
 // failed_job
+Route::get('/retry/singlejob/{id}',[FailedJobController::class,'retry_singlejob'])
+->name('retry_singlejob');
+Route::get('/retry/alljob',[FailedJobController::class,'retry_alljob'])
+->name('retry_alljob');
 Route::resource('failed_job',FailedJobController::class);
 // processjob
 Route::get('processjob', [ProcessJobController::class, 'index'])
@@ -116,29 +126,11 @@ Route::get('processjob', [ProcessJobController::class, 'index'])
 
 
 
-Route::get('queue_retry_all', function () {
-
-    \Artisan::call('queue:retry all');
-
-    return back();
-
-})->name('queue_retry_all');
-
-
-
-Route::get('queue_retry', function () {
-
-    \Artisan::call('queue:retry 409' );
-
-    return back();
-
-})->name('queue_retry_all');
-
-
 Route::get('job_processing/{id}', [ProcessJobController::class, 'job_processing']);
 
 // job_live_history
-Route::get('job_live_history', [ProcessJobController::class, 'job_live_history'])->name('job_live_history');
+Route::get('job_live_history', [ProcessJobController::class, 'job_live_history'])
+->name('job_live_history');
 
 
 

@@ -20,7 +20,9 @@ class FailedJobController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
 
-                           $btn = '<a href="'.route('queue_retry_all').'" class="edit btn btn-primary btn-sm">Retry</a><a href="'.route('queue_retry_all').'" class="edit btn btn-success btn-sm">Retry_All</a>';
+                         $retry_singlejob = route('retry_singlejob', $row->uuid);
+
+                           $btn = '<a href="'.$retry_singlejob.'" class="edit btn btn-primary btn-sm">Retry</a><a href="'.route('retry_alljob').'" class="edit btn btn-success btn-sm">Retry_All</a>';
                             return $btn;
 
                     })->rawColumns(['action'])
@@ -31,40 +33,26 @@ class FailedJobController extends Controller
         return view('failed_job/index');
         
     }
+    
+
 
   
-    public function create()
+    public function retry_singlejob($id)
     {
-        //
+         \Artisan::call('queue:retry '.$id);
+
+         return back();
+        
     }
 
    
-    public function store(Request $request)
+    public function retry_alljob()
     {
-        //
+        \Artisan::call('queue:retry all');
+
+         return back();
     }
 
    
-    public function show($id)
-    {
-        //
-    }
-
-   
-    public function edit($id)
-    {
-        //
-    }
-
-   
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-   
-    public function destroy($id)
-    {
-        //
-    }
+  
 }

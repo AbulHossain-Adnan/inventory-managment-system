@@ -7,6 +7,9 @@ use App\Imports\FileImport;
 use App\Services\FileService;
 use App\Http\Requests\FileRequest;
 use Illuminate\Support\Facades\Bus;
+use App\Models\User;
+use App\Notifications\FailedJobAlert;
+use Illuminate\Notifications\Notification;
 
 class FileController extends Controller
 {
@@ -34,7 +37,7 @@ class FileController extends Controller
 
 
         // return  redirect('progress_job/index',compact('batch_data'));
-
+         
         return redirect('job_processing/'. $batchId);
     }
 

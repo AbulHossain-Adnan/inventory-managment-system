@@ -8,28 +8,14 @@ use App\Jobs\ExpiredDomainProcess;
 use App\Imports\FileImport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use App\DataTables\expired_domainsDataTable;
 class ExpiredDomainController extends Controller
 {
    
-    public function index(Request $request){
-    
-        if ($request->ajax()) {
+    public function index(expired_domainsDataTable $dataTable){
 
-            $data = ExpiredDomain::all();
-                    
-            return DataTables::of($data) 
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                            return $btn;
-
-                    })->rawColumns(['action'])
-                    ->make(true);
-                   
-        }
-
-        return view('expiredDomain/index');
+         return $dataTable->render('expiredDomain/index');
+       
        
     }
 
