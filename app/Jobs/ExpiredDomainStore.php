@@ -14,9 +14,6 @@ use App\Models\User;
 use App\Notifications\FailedJobAlert;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\Events\JobFailed;
-
-
-
 use DB;
 
 class ExpiredDomainStore implements ShouldQueue
@@ -33,9 +30,9 @@ class ExpiredDomainStore implements ShouldQueue
 
    
 
-    public function handle()
-    {
-        try{
+    public function handle(){ 
+    
+      
             foreach ($this->data as $domains) {
 
                 foreach($domains as $domain){
@@ -46,11 +43,13 @@ class ExpiredDomainStore implements ShouldQueue
                     }
 
             }
-        }
-    }catch (Exception $e) {
-        $user=User::first();
-$user->notify(new FailedJobAlert());
-    }
-         
+        }    
     } 
+        
+      public function failed(Exception $exception){ 
+    
+        $user=User::first();
+        $user->notify(new FailedJobAlert());
+    }
 }
+

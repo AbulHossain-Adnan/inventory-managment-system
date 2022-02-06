@@ -8,22 +8,32 @@ use App\Jobs\ExpiredDomainProcess;
 use App\Imports\FileImport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
-use App\DataTables\expired_domainsDataTable;
 class ExpiredDomainController extends Controller
 {
    
-    public function index(expired_domainsDataTable $dataTable){
+    public function index(Request $request){
+         if ($request->ajax()) {
 
-         return $dataTable->render('expiredDomain/index');
+            $data = ExpiredDomain::all();
+                    
+            return DataTables::of($data) 
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '<a href="" class="edit btn btn-primary btn-sm">edit</a><a href="'.route('retry_alljob').'" class="edit btn btn-success btn-sm">delete</a>';
+                            return $btn;
+
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+                   
+        }
+
+         return view('expiredDomain/index');
        
        
     }
 
-   
-    public function create()
-    {
-        //
-    }
+
 
   
     public function store(Request $request)

@@ -11,19 +11,19 @@ use Yajra\DataTables\Services\DataTable;
 
 class expired_domainsDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
-     */
+   
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'test.action');
-    }
+            ->addColumn('action',  $btn = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm">View</a>'
+                
 
+        );
+    }
+                   
+
+                   
     /**
      * Get query source of dataTable.
      *
@@ -57,11 +57,7 @@ class expired_domainsDataTable extends DataTable
                     );
     }
 
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
+   
     protected function getColumns()
     {
         return [

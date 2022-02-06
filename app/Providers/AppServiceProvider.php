@@ -4,26 +4,27 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Models\User;
+use Illuminate\Support\Facades\Queue;
+use App\Notifications\queueJobFailedAlert;
+use Illuminate\Queue\Events\JobFailed;
+
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
+    
     public function register()
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-         Paginator::useBootstrap();
+   
+    public function boot(){
+   
+      Queue::failing(function (JobFailed $event) {
+            $event->connectionName;
+           $user = User::first();
+            $user->notify(new queueJobFailedAlert());
+        });
     }
 }

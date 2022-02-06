@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Bus;
 use App\Models\User;
 use App\Notifications\FailedJobAlert;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\Events\JobFailed;
 
 class FileController extends Controller
 {

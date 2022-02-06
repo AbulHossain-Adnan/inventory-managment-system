@@ -30,7 +30,7 @@
 									<th scope="col">total jobs</th>
 									<th scope="col">pending jobs</th>
 									<th scope="col">failed jobs</th>
-									<th scope="col">failed job_ids</th>
+									<!-- <th scope="col">failed job_ids</th> -->
 									<!-- <th scope="col">options</th> -->
 									<th scope="col">cancelled at</th>
 									<th scope="col">created at</th>
@@ -69,7 +69,7 @@
             {data: 'total_jobs', name: 'total_jobs'},
             {data: 'pending_jobs', name: 'pending_jobs'},
             {data: 'failed_jobs', name: 'failed_jobs'},
-            {data: 'failed_job_ids', name: 'failed_job_ids'},
+            // {data: 'failed_job_ids', name: 'failed_job_ids'},
             // {data: 'options', name: 'options'},
             {data: 'cancelled_at', name: 'cancelled_at'},
             {data: 'created_at', name: 'created_at'},

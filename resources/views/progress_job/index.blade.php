@@ -36,9 +36,11 @@
 						
   </div>
   <div class="card-footer text-muted">
+	pendingJobs ::{{$batch->pendingJobs}} <br>
 	Failed Job ::{{$batch->failedJobs}} <br>
 	processedJobs:: {{$batch->processedJobs()}}<br>
 	cancelled Job:: {{$batch->cancelled()}}
+	
 
   </div>
   @endif
