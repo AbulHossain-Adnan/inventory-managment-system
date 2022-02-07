@@ -42,8 +42,8 @@ class ExpiredDomainStore implements ShouldQueue
                         
                     }
 
-            }
-        }    
+                }
+            }    
     } 
         
       public function failed(Exception $exception){ 

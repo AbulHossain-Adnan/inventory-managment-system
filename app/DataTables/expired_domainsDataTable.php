@@ -23,23 +23,12 @@ class expired_domainsDataTable extends DataTable
     }
                    
 
-                   
-    /**
-     * Get query source of dataTable.
-     *
-     * @param \App\Models\test $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function query(ExpiredDomain $model)
     {
         return $model->newQuery();
     }
 
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
+   
     public function html()
     {
         return $this->builder()
@@ -71,11 +60,7 @@ class expired_domainsDataTable extends DataTable
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
+   
     protected function filename()
     {
         return 'ExpiredDomain_' . date('YmdHis');

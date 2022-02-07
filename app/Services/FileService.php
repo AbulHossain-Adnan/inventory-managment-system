@@ -16,7 +16,7 @@ class FileService{
       $chunk_size=$request['chunk'];
       $file=$request['file'];
       $extension=$file->extension();
-       
+        $batch  = Bus::batch([])->dispatch();
        
       if($extension =="txt"){
 
@@ -24,7 +24,7 @@ class FileService{
          $domains = explode("\n",$doc);
          $chunks = array_chunk($domains,$chunk_size);
           
-         $batch  = Bus::batch([])->dispatch();
+        
 
          foreach ($chunks as $key => $domain) {
             $data = array_map('str_getcsv', $domain);
@@ -40,7 +40,7 @@ class FileService{
       else{
 
          Excel::import(new FileImport,$file);
-
+        
       }
 	}
 }

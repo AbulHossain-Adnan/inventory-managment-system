@@ -19,17 +19,38 @@
 			<div class="col-sm-11 m-auto">
 				<div class="card">
 					<div class="card-body">
-						
-						
-
+						<nav class="navbar navbar-light bg-light">
+					  <form class="form-inline" id="search-form">
+					  	  <div class="form-group">
+					    <label for="exampleFormControlSelect1">Number</label>
+					    <select class="form-control" id="number" name="number">
+					      <option value="any">Any</option>
+					      <option value="only">yes</option>
+					      <option value="mixed">Mixed</option>
+					    </select>
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleFormControlSelect1">Dash</label>
+					    <select class="form-control" id="dash" name="dash">
+					      <option >Any</option>
+					      <option value="yes">yes</option>
+					      
+					    </select>
+					  </div>
+					    
+					     <input class="form-control mr-sm-2" type="text" name="keyword" id="keyword" placeholder="Keyword" aria-label="Search">
+					    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					    <a class="btn btn-success" href="{{route('expireddomain.create')}}" type="submit">PDF</a>
+					  </form>
+					</nav>
 						<table class="table" id="data-table">
+
 							<thead>
+
 								<tr>
 									<th scope="col">Id</th>
 									<th scope="col">Domain</th>
 									<th scope="col">Actions</th>
-
-									
 								</tr>
 							</thead>
 							<tbody>
@@ -45,26 +66,48 @@
 
 
 		<script type="text/javascript">
-  $(function () {
+   $(function () {
 
-  
-    var Table = $('#data-table').DataTable({
+    var name=$('#name').val();
+
+    var oTable = $('#data-table').DataTable({
 
         processing: true,
 
         serverSide: true,
 
-         ajax: "{{ route('expireddomain.index') }}",
-	
+        ajax:{
+        	url:"{{route('expireddomain.index')}}",
+        	data: function (d) {
+               
+                d.keyword = $('#keyword').val();
+                d.number = $('#number').val();
+                d.dash = $('#dash').val();
+ 
+            }
+        	
+        },
+
+        
+       
+
         columns: [
 
             {data: 'id', name: 'id'},
+
             {data: 'domain', name: 'domain'},
+
             {data: 'action', name: 'action', orderable: false, searchable: false}
 
         ]
 
     });
+  $('#search-form').on('submit', function(e) {
+        oTable.draw();
+        e.preventDefault();
+    });
+    
+
   });
 
 </script>
@@ -76,3 +119,4 @@
 	@includeIf('backend.include.footer')
 	<!-- /.control-sidebar -->
 	@stop
+

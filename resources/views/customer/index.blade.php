@@ -70,8 +70,7 @@
                 { "data": "address" },
                 { "data": "options" },
                
-            ]
-           });
+            ]});
 
 
 
@@ -96,7 +95,7 @@
 		}
 	})
 }
-</script>
+              </script>
 
 
 

@@ -179,12 +179,7 @@
                   <p>ExpiredDomains List</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('expireddomain.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Failed Job List</p>
-                </a>
-              </li>
+            
              
             </ul>
 
@@ -204,12 +199,7 @@
                   <p>US City List</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('expireddomain.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Failed Job List</p>
-                </a>
-              </li>
+             
              
             </ul>
 

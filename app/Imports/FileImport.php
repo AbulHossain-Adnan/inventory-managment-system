@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Uscity;
+use Illuminate\Bus\Batchable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class FileImport implements ToModel, WithChunkReading, ShouldQueue,WithStartRow
 {
-   
+    use Batchable;
     public function model(array $row)
     {
       

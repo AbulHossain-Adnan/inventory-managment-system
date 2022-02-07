@@ -16,6 +16,8 @@ use App\Http\Controllers\ExpiredDomainController;
 use App\Http\Controllers\Uscity\UScityController;
 use App\Http\Controllers\FailedJob\FailedJobController;
 use App\Http\Controllers\ProcessJob\ProcessJobController;
+use App\Http\Controllers\PdfController;
+
 
 
 
@@ -134,6 +136,12 @@ Route::get('job_live_history', [ProcessJobController::class, 'job_live_history']
 
 
 
+
+// Route::get('pdfdisplay', [PdfController::class, 'pdfdisplay'])
+// ->name('pdfdisplay');
+
+
+Route::get('pdfdisplay', [App\Http\Controllers\PdfController::class, 'pdfdisplay'])->name('pdfdisplay');
 
 
 

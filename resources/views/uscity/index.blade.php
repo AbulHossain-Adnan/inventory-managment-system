@@ -61,18 +61,13 @@
 
 		<script type="text/javascript">
   $(function () {
-
   
     var Table = $('#data-table').DataTable({
-
         processing: true,
-
         serverSide: true,
-
          ajax: "{{ route('uscity.index') }}",
 	
         columns: [
-
             {data: 'id', name: 'id'},
             {data: 'city', name: 'city'},
             {data: 'city_ascii', name: 'city_ascii'},
@@ -92,12 +87,9 @@
             // {data: 'zips', name: 'zips'},
             // {data: 'idd', name: 'idd'},
             {data: 'action', name: 'action', orderable: false, searchable: false}
-
         ]
-
     });
   });
-
 </script>
 	</div>
 	@jquery

@@ -31,15 +31,10 @@ class FileController extends Controller
     {
         $batch=$this->fileservice->fileHandle($request); 
         toastr()->success('data stored succesfully');
-
-        $batchId=$batch->id;
-
-        $batch_data=Bus::findBatch($batchId);
-
-
-        // return  redirect('progress_job/index',compact('batch_data'));
-         
-        return redirect('job_processing/'. $batchId);
+        if($batch!=null){
+        return redirect('job_processing/'. $batch->id);
+         }
+          return back();
     }
 
 }

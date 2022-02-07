@@ -26,7 +26,7 @@ class ProcessJobController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
 
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a><a href="javascript:void(0)" class="edit btn btn-danger btn-sm">Delete</a>';
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">view</a><a href="javascript:void(0)" class="edit btn btn-danger btn-sm">delete</a>';
                             return $btn;
 
                     })->rawColumns(['action'])

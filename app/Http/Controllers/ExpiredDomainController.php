@@ -3,28 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\ExpiredDomain;
 use App\Jobs\ExpiredDomainProcess;
 use App\Imports\FileImport;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use App\Services\ExpiredDomainService;
+use Carbon\Carbon;
+use ExcelReport;
 class ExpiredDomainController extends Controller
 {
+
+public $data;
+    protected $expireddomainservice;
+    public function __construct(ExpiredDomainService $expireddomainservice){
+        $this->expireddomainservice=$expireddomainservice;
+
+    }
    
     public function index(Request $request){
-         if ($request->ajax()) {
+    
+        if ($request->ajax()) {
 
-            $data = ExpiredDomain::all();
-                    
-            return DataTables::of($data) 
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                           $btn = '<a href="" class="edit btn btn-primary btn-sm">edit</a><a href="'.route('retry_alljob').'" class="edit btn btn-success btn-sm">delete</a>';
-                            return $btn;
+            $data = ExpiredDomain::select(['id', 'domain']);
+            // $this->test($data);
+                  
+            return Datatables::of($data) 
 
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+            ->filter(function ($query) use ($request) {
+
+                $fileter_data = $this->expireddomainservice->conditions($request,$query);
+             
+            })
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                    return $btn;
+
+                    })->rawColumns(['action'])
+                     ->make(true);
                    
         }
 
@@ -35,7 +54,40 @@ class ExpiredDomainController extends Controller
 
 
 
+
+
+public function create(){
+
+
+
+      
+    $queryBuilder = ExpiredDomain::select(['id', 'domain']);
+
+    $title = 'Registered User Report'; // Report title
+
+    $meta = [ // For displaying filters description on header
+            'Registered on' =>"this is date"
+        ];
+
+    $columns = [ // Set Column to be displayed
+            'ID' => 'id',
+            'domain_Name' => 'domain'
+        ];
+
+        return ExcelReport::of($title, $meta, $queryBuilder, $columns)
+        ->limit(20) 
+        ->download('adnan');
+}
+
   
+// public function test($data){
+
+//     return $data;
+
+// }
+
+
+
     public function store(Request $request)
     {
 
@@ -48,8 +100,6 @@ class ExpiredDomainController extends Controller
 
         $domains=explode("\n",$doc);
         $chunks = array_chunk($domains,1000);
-
-      
             $header = [];
 
             foreach ($chunks as $key => $domain) {
@@ -62,12 +112,7 @@ class ExpiredDomainController extends Controller
 
                     unset($data[0]);
                 }
-          
-
       ExpiredDomainProcess::dispatch($data,$header); 
-
-
-            
             }
              echo "stored"; 
 
