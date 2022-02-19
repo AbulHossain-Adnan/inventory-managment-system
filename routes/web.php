@@ -107,6 +107,8 @@ Route::get('queue',function(){
 
 Route::resource('file',FileController::class);
 // expiredDomain
+Route::post('/select_column_post',[ExpiredDomainController::class,'select_column_post'])
+->name('select_column_post');
 Route::resource('expireddomain',ExpiredDomainController::class);
 // uscity
 Route::resource('uscity',UScityController::class);

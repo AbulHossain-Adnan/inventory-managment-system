@@ -37,7 +37,11 @@ class ExpiredDomainController extends Controller
                 $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
                 return $btn;
 
-            })->rawColumns(['action'])
+            })
+            ->addColumn('checkbox', function($row){
+                return '<input type = "checkbox" name="domain_checkbox" data-id="'.$row->id.'"><lavel></label>';
+            })
+            ->rawColumns(['action','checkbox'])
             ->make(true);
                    
         }       
@@ -65,6 +69,8 @@ class ExpiredDomainController extends Controller
         ->limit(20) 
         ->download('adnan');
     }
+
+    
 
   
 
@@ -105,6 +111,19 @@ class ExpiredDomainController extends Controller
 
         }
    
+    }
+
+    public function select_column_post(Request $request){
+
+        $datas = $request->selectedColumn;
+        foreach($datas as $data){
+
+           ExpiredDomain::findOrFail($data)->delete();
+
+         
+
+        }
+        return response()->json(['success'=>'success']);
     }
 
 }

@@ -13,23 +13,29 @@ class FileService{
 
 	public function fileHandle($request){
 
+      
+
       $chunk_size=$request['chunk'];
+
+      
       $file=$request['file'];
       $extension=$file->extension();
+   
         $batch  = Bus::batch([])->dispatch();
        
       if($extension =="txt"){
-
+         $batch  = Bus::batch([])->dispatch();
          $doc = file_get_contents($file);
-         $domains = explode("\n",$doc);
-         $chunks = array_chunk($domains,$chunk_size);
-          
-        
 
+         
+         $domains = explode("\n",$doc);
+         
+         $chunks = array_chunk($domains,$chunk_size);
+         
+         
          foreach ($chunks as $key => $domain) {
             $data = array_map('str_getcsv', $domain);
-                
-            // ExpiredDomainStore::dispatch($data);
+               
 
              $batch->add(new ExpiredDomainStore($data));
 
